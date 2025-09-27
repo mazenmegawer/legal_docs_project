@@ -1,0 +1,6 @@
+CREATE DATABASE legal_docs
+  WITH ENCODING 'UTF8'
+       LC_COLLATE='ar_EG.UTF-8'
+       LC_CTYPE='ar_EG.UTF-8'
+       TEMPLATE template0
+       OWNER postgres;
