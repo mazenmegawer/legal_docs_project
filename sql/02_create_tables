@@ -1,49 +1,57 @@
--- Core Documents table
-CREATE TABLE documents (
-    document_id SERIAL PRIMARY KEY,
-    doc_type VARCHAR(20) NOT NULL,   -- 'law' | 'judgment' | 'fatwa'
-    title TEXT,
-    reference_number VARCHAR(100),
-    issue_date DATE,
-    session_date DATE,
-    created_at TIMESTAMP DEFAULT now(),
-    updated_at TIMESTAMP DEFAULT now()
-);
+-- Cleanup
+DROP TABLE IF EXISTS fatwas CASCADE;
+DROP TABLE IF EXISTS judgments CASCADE;
+DROP TABLE IF EXISTS laws CASCADE;
+DROP TABLE IF EXISTS documents CASCADE;
 
--- Fatwas
-CREATE TABLE fatwas (
-    fatwa_id SERIAL PRIMARY KEY,
-    document_id INT NOT NULL REFERENCES documents(document_id) ON DELETE CASCADE,
-    file_number VARCHAR(100),
-    principle TEXT,
-    subject TEXT,
-    facts TEXT,
-    application TEXT,
-    opinion TEXT
-);
-
--- Judgments
-CREATE TABLE judgments (
-    judgment_id SERIAL PRIMARY KEY,
-    document_id INT NOT NULL REFERENCES documents(document_id) ON DELETE CASCADE,
-    appeal_number VARCHAR(100),
-    court_name TEXT,
-    chamber TEXT,
-    principles TEXT,
-    facts TEXT,
-    reasoning TEXT,
-    ruling TEXT
-);
-
--- Laws
-CREATE TABLE laws (
-    law_id SERIAL PRIMARY KEY,
-    document_id INT NOT NULL REFERENCES documents(document_id) ON DELETE CASCADE,
-    law_number VARCHAR(100),
-    publication_date DATE,
-    effective_date DATE,
-    source TEXT,
-    preamble TEXT,
-    articles JSONB,
-    signature TEXT
-);
+    -- Recreate tables
+    
+    -- Core Documents table
+    CREATE TABLE documents (
+        document_id SERIAL PRIMARY KEY,
+        doc_type VARCHAR(20) NOT NULL,   -- 'law' | 'judgment' | 'fatwa'
+        title TEXT,
+        reference_number VARCHAR(100),
+        issue_date DATE,
+        session_date DATE,
+        created_at TIMESTAMP DEFAULT now(),
+        updated_at TIMESTAMP DEFAULT now()
+    );
+    
+    -- Fatwas
+    CREATE TABLE fatwas (
+        fatwa_id SERIAL PRIMARY KEY,
+        document_id INT NOT NULL REFERENCES documents(document_id) ON DELETE CASCADE,
+        file_number VARCHAR(100),
+        principle TEXT,
+        subject TEXT,
+        facts TEXT,
+        application TEXT,
+        opinion TEXT
+    );
+    
+    -- Judgments
+    CREATE TABLE judgments (
+        judgment_id SERIAL PRIMARY KEY,
+        document_id INT NOT NULL REFERENCES documents(document_id) ON DELETE CASCADE,
+        appeal_number VARCHAR(100),
+        court_name TEXT,
+        chamber TEXT,
+        principles TEXT,
+        facts TEXT,
+        reasoning TEXT,
+        ruling TEXT
+    );
+    
+    -- Laws
+    CREATE TABLE laws (
+        law_id SERIAL PRIMARY KEY,
+        document_id INT NOT NULL REFERENCES documents(document_id) ON DELETE CASCADE,
+        law_number VARCHAR(100),
+        publication_date DATE,
+        effective_date DATE,
+        source TEXT,
+        preamble TEXT,
+        articles JSONB,
+        signature TEXT
+    );
