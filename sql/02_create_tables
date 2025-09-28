@@ -11,7 +11,6 @@ DROP TABLE IF EXISTS documents CASCADE;
         document_id SERIAL PRIMARY KEY,
         doc_type VARCHAR(20) NOT NULL,   -- 'law' | 'judgment' | 'fatwa'
         title TEXT,
-        reference_number VARCHAR(100),
         issue_date DATE,
         session_date DATE,
         created_at TIMESTAMP DEFAULT now(),
@@ -34,6 +33,7 @@ DROP TABLE IF EXISTS documents CASCADE;
     CREATE TABLE judgments (
         judgment_id SERIAL PRIMARY KEY,
         document_id INT NOT NULL REFERENCES documents(document_id) ON DELETE CASCADE,
+        reference_number VARCHAR(100),   -- رقم الطعن
         appeal_number VARCHAR(100),
         court_name TEXT,
         chamber TEXT,
@@ -55,3 +55,9 @@ DROP TABLE IF EXISTS documents CASCADE;
         articles JSONB,
         signature TEXT
     );
+    
+    -- Indexes (optional for performance)
+    CREATE INDEX idx_documents_type ON documents(doc_type);
+    CREATE INDEX idx_documents_issue_date ON documents(issue_date);
+    CREATE INDEX idx_documents_title_tsv
+      ON documents USING gin (to_tsvector('arabic', title));
