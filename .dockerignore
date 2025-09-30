@@ -1,0 +1,14 @@
+# dependencies
+node_modules
+dist
+
+# version control
+.git
+.gitignore
+
+# logs
+*.log
+*.tmp
+
+# configs
+.env

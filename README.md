@@ -1,4 +1,14 @@
 # legal_docs_project
+
+
+
+
+
+
+
+
+The Postgres container listens on localhost:5555. Connect using port 5555 in DBMS clients
+
 ## 📖 Column Name Reference (English ↔ Arabic)
 
 This project uses English column names in the database schema for clarity and compatibility.  
@@ -13,7 +23,7 @@ Below is a reference mapping to their Arabic meanings based on the original docu
 |               | updated_at           | تاريخ التحديث                    |
 | **fatwas**    | fatwa_id             | رقم الفتوى                       |
 |               | document_id          | معرف المستند                     |
-|               | file_number          | رقم الملف                        |
+|               | fatwa_number         | رقم الفتوي                        |
 |               | principle            | المبدأ                           |
 |               | subject              | الموضوع                          |
 |               | facts                | الوقائع                          |

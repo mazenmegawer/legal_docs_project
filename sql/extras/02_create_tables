@@ -46,7 +46,7 @@ CREATE TABLE laws (
     law_id SERIAL PRIMARY KEY,
     document_id INT NOT NULL REFERENCES documents(document_id) ON DELETE CASCADE,
     law_number VARCHAR(100),
-    issue_date DATE,                 -- تاريخ الإصدار
+    issue_date DATE,                -- تاريخ الإصدار
     publication_date DATE,
     effective_date DATE,
     source TEXT,
