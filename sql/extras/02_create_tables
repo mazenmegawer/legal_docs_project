@@ -1,14 +1,14 @@
 -- Cleanup
 DROP TABLE IF EXISTS fatwas CASCADE;
 DROP TABLE IF EXISTS judgments CASCADE;
-DROP TABLE IF EXISTS laws CASCADE;
+DROP TABLE IF EXISTS legislations CASCADE;
 DROP TABLE IF EXISTS documents CASCADE;
 
 -- Recreate tables
 -- Core Documents table
 CREATE TABLE documents (
     document_id SERIAL PRIMARY KEY,
-    doc_type VARCHAR(20) NOT NULL,   -- 'law' | 'judgment' | 'fatwa'
+    doc_type VARCHAR(20) NOT NULL,   -- 'legislation' | 'judgment' | 'fatwa'
     title TEXT,
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP DEFAULT now()
@@ -41,11 +41,11 @@ CREATE TABLE judgments (
     session_date DATE                -- تاريخ الجلسة
 );
 
--- Laws
-CREATE TABLE laws (
-    law_id SERIAL PRIMARY KEY,
+-- Legislations
+CREATE TABLE legislations (
+    legislation_id SERIAL PRIMARY KEY,
     document_id INT NOT NULL REFERENCES documents(document_id) ON DELETE CASCADE,
-    law_number VARCHAR(100),
+    legislation_number VARCHAR(100),
     issue_date DATE,                -- تاريخ الإصدار
     publication_date DATE,
     effective_date DATE,

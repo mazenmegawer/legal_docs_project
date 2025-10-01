@@ -38,15 +38,15 @@ VALUES
     (currval(pg_get_serial_sequence('judgment','judgment_id')), 'العقد شريعة المتعاقدين'),
     (currval(pg_get_serial_sequence('judgment','judgment_id')), 'الحق لا يسقط بالتقادم');
 
--- Insert a Law
+-- Insert a Legislation
 INSERT INTO document (doc_type, title)
-VALUES ('law', 'قانون حماية المستهلك')
+VALUES ('legislation', 'قانون حماية المستهلك')
 RETURNING document_id;
 
-INSERT INTO law (document_id, law_number, issue_date, publication_date, effective_date, source, preamble, signature)
+INSERT INTO legislation (document_id, legislation_number, issue_date, publication_date, effective_date, source, preamble, signature)
 VALUES (
     currval(pg_get_serial_sequence('document','document_id')),
-    'Law 10/2019',
+    'Legislation 10/2019',
     '2019-03-10',
     '2019-03-15',
     '2019-06-01',
@@ -55,8 +55,8 @@ VALUES (
     'رئيس الجمهورية'
 );
 
--- Law Articles
-INSERT INTO law_article (law_id, article_number, article_text)
+-- Legislation Articles
+INSERT INTO legislation_article (legislation_id, article_number, article_text)
 VALUES
-    (currval(pg_get_serial_sequence('law','law_id')), 1, 'المادة 1: يلتزم المورد بتقديم فاتورة للمستهلك.'),
-    (currval(pg_get_serial_sequence('law','law_id')), 2, 'المادة 2: للمستهلك الحق في الاستبدال أو الاسترجاع.');
+    (currval(pg_get_serial_sequence('legislation','legislation_id')), 1, 'المادة 1: يلتزم المورد بتقديم فاتورة للمستهلك.'),
+    (currval(pg_get_serial_sequence('legislation','legislation_id')), 2, 'المادة 2: للمستهلك الحق في الاستبدال أو الاسترجاع.');

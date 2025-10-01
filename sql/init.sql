@@ -1,7 +1,7 @@
 ﻿-- Core Document table
 CREATE TABLE document (
     document_id SERIAL PRIMARY KEY,
-    doc_type VARCHAR(20) NOT NULL,  -- (law / judgment / fatwa | نوع المستند: قانون / حكم / فتوى)
+    doc_type VARCHAR(20) NOT NULL,  -- (legislation / judgment / fatwa | نوع المستند: قانون / حكم / فتوى)
     title TEXT,                     -- العنوان
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP DEFAULT now()
@@ -40,11 +40,11 @@ CREATE TABLE judgment_principle (
     principle TEXT NOT NULL   -- المبدأ
 );
 
--- Law
-CREATE TABLE law (
-    law_id SERIAL PRIMARY KEY,
+-- Legislation
+CREATE TABLE legislation (
+    legislation_id SERIAL PRIMARY KEY,
     document_id INT NOT NULL REFERENCES document(document_id) ON DELETE CASCADE,
-    law_number TEXT,
+    legislation_number TEXT,
     issue_date DATE,
     publication_date DATE,
     effective_date DATE,
@@ -53,10 +53,10 @@ CREATE TABLE law (
     signature TEXT     -- التوقيع
 );
 
--- Law articles 
-CREATE TABLE law_article (
+-- Legislation articles 
+CREATE TABLE legislation_article (
     article_id SERIAL PRIMARY KEY,
-    law_id INT NOT NULL REFERENCES law(law_id) ON DELETE CASCADE,
+    legislation_id INT NOT NULL REFERENCES legislation(legislation_id) ON DELETE CASCADE,
     article_number INT NOT NULL,
     article_text TEXT NOT NULL   -- نص المادة
 );
