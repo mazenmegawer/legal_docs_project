@@ -40,9 +40,9 @@ Below is a reference mapping to their Arabic meanings based on the original docu
 |               | reasoning            | الحيثيات                         |
 |               | ruling               | الحكم                            |
 |               | session_date         | تاريخ الجلسة                     |
-| **laws**      | law_id               | رقم القانون (معرف)               |
+| **legislations**      | legislation_id               | رقم القانون (معرف)               |
 |               | document_id          | معرف المستند                     |
-|               | law_number           | رقم القانون                      |
+|               | legislation_number           | رقم القانون                      |
 |               | issue_date           | تاريخ الإصدار                    |
 |               | publication_date     | تاريخ النشر                      |
 |               | effective_date       | تاريخ العمل به                   |

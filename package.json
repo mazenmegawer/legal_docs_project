@@ -12,13 +12,18 @@
     "dependencies": {
         "dotenv": "^17.2.2",
         "express": "^5.1.0",
-        "pg": "^8.16.0"
+        "pg": "^8.16.0",
+        "adm-zip": "^0.5.12",
+        "xml2js": "^0.6.2",
+        "mammoth": "^1.6.0"
     },
     "devDependencies": {
         "@types/express": "^5.0.0",
         "@types/node": "^22.0.0",
         "@types/pg": "^8.15.5",
+        "@types/xml2js": "^0.4.14",
+        "@types/adm-zip": "^0.5.7",
         "ts-node-dev": "^2.0.0",
-        "typescript": "^5.5.4"
+        "typescript": "^5.6.3"
     }
 }
