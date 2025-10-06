@@ -1,5 +1,10 @@
-export function extractFatwa(text: string): any {
+// parser/extractors/fatwaExtractor.ts
+import { FatwaDocument } from "../types/fatwa";
 
-return { type: "fatwa", preview: text.slice(0, 200)};
-
+export function extractFatwa(rawText: string): FatwaDocument {
+  // For now, just wrap the text into a FatwaDocument
+  return {
+    type: "fatwa",
+    rawText
+  };
 }
