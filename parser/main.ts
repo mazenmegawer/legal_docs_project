@@ -20,7 +20,9 @@ async function main() {
 
     let extractedResult: any;
     if (docType === "fatwa") {
-        extractedResult = extractFatwa(processedText);
+        const extractedResult = extractFatwa(processedText);
+        console.log("Extracted Fatwa:", extractedResult);
+        await fs.writeFile("fatwa_output.txt", extractedResult.rawText, { encoding: "utf8" });
     } else if (docType === "judgment") {
         extractedResult = extractJudgment(processedText);
     } else if (docType === "legislation") {
