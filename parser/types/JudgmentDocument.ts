@@ -1,5 +1,5 @@
 // parser/types/Judgment.ts
-import { BaseDocument } from "./document";
+import { BaseDocument } from "./BaseDocument";
 
 export interface JudgmentPrinciple {
   number: number;   // principle_number

@@ -1,5 +1,5 @@
 // parser/types/Fatwa.ts
-import { BaseDocument } from "./document";
+import { BaseDocument } from "./BaseDocument";
 
 export interface FatwaDocument extends BaseDocument {
   type: "fatwa";
@@ -10,4 +10,6 @@ export interface FatwaDocument extends BaseDocument {
   application?: string;     // التطبيق
   opinion?: string;         // الرأي
   sessionDate?: string;     // تاريخ الجلسة
+  issuer?: string;          // المُصدر
+  principle?: string;       // المبدأ
 }

@@ -1,5 +1,5 @@
 // parser/types/Legislation.ts
-import { BaseDocument } from "./document";
+import { BaseDocument } from "./BaseDocument";
 
 export interface LegislationArticle {
   number: number;   // article_number
