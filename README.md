@@ -1,7 +1,6 @@
 ## legal_docs_project
 
-Structured extraction and storage of Arabic legal documents (Fatwas, Judgments, Legislations) using Node.js + TypeScript, an Express API, and a PostgreSQL database.
-Everything runs through Docker Compose, which spins up the database and the app that first parses the sample fatwas, then starts the API automatically.
+Structured extraction and storage of Arabic legal documents (Fatwas, Judgments, Legislations), Everything runs through Docker Compose, which starts the database and the app that first parses the sample fatwas, then starts the API automatically.
 
 ## Overview
 
@@ -11,3 +10,23 @@ Everything runs through Docker Compose, which spins up the database and the app 
 
 ## Environment
 Environment variables are read from .env when running locally and are passed in automatically through Compose.
+database connection string:
+  Local:
+  DATABASE_URL=postgres://postgres:postgres@localhost:5555/legal_docs
+
+  docker:
+  DATABASE_URL=postgres://postgres:postgres@db:5432/legal_docs
+
+variables:
+* API port
+PORT=3000 
+
+* Postgres connection string
+DATABASE_URL  
+
+# Running with Docker:
+
+```
+  docker compose up
+```
+
