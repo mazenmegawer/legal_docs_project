@@ -53,3 +53,41 @@ docker compose up -d db
 - `PORT=3000` → API port  
 - `DATABASE_URL` → Postgres connection string  
 ```
+
+3. run the parser:
+
+````
+npx ts-node src/parser/main.ts data/fatwas/*.docx
+````
+4. run the api 
+```
+  # Run directly with ts-node
+npx ts-node -r dotenv/config src/api/index.ts
+
+# Or build and run from dist
+npm run build
+node dist/api/index.js
+
+```
+
+## Database Schema:
+
+<img width="561" height="842" alt="legal_docs - public" src="https://github.com/user-attachments/assets/f8e2e849-f543-4fd5-bce8-d1e77a6056ff" />
+
+## Future improvements: 
+
+Add parsing for judgments and legislations (and matching DB writes).
+
+Extend the API with /judgments and /legislations.
+
+Improve Arabic text normalization and label detection.
+
+Add indexes and optimize frequent queries.
+
+Implement authentication and request validation for the API.
+
+Add unit and integration tests.
+
+Improve logs and error handling.
+
+
