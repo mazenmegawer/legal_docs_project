@@ -39,6 +39,8 @@ database connection string:
 
 4. When done, it starts the API at http://localhost:3000 and currently the only api functionality is to retrieve jsons of all the fatwa documents extracted
 
+5. the end point `http://localhost:3000/fatwas` returns all the fatwas that has been fed into the database
+
 ---------------------------------
 
 ## running locally:
