@@ -20,9 +20,7 @@ async function main() {
 
     let extractedResult: any;
     if (docType === "fatwa") {
-        const extractedResult = extractFatwa(processedText);
-        console.log("Extracted Fatwa:", extractedResult);
-        await fs.writeFile("fatwa_output.txt", extractedResult.rawText, { encoding: "utf8" });
+        extractedResult = extractFatwa(processedText);
     } else if (docType === "judgment") {
         extractedResult = extractJudgment(processedText);
     } else if (docType === "legislation") {
@@ -32,12 +30,13 @@ async function main() {
         process.exit(1);
     }
 
-    console.log(JSON.stringify(extractedResult, null, 2));
-    await fs.writeFile("output.txt", extractedResult.preview || extractedResult.raw || "", {
-        encoding: "utf8"
-    });
-    process.stdout.setEncoding("utf8");
-    console.log("Output written to output.txt");
+
+    // Write structured JSON output
+    const jsonOutput = JSON.stringify(extractedResult, null, 2);
+    await fs.writeFile("output4.json", jsonOutput, { encoding: "utf8" });
+
+    console.log("✅ Structured output written to output.json");
+
 }
 
 main();
