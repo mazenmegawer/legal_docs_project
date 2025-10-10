@@ -1,4 +1,4 @@
-import { pool } from "./db";
+import { pool } from "../../db/db";
 import { FatwaDocument } from "../types/FatwaDocument";
 
 export async function insertFatwa(fatwa: Partial<FatwaDocument>) {
