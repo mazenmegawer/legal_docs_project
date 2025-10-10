@@ -22,8 +22,11 @@ database connection string:
 
 # Running with Docker:
 
+
 ```
-  docker compose up
+  git clone https://github.com/mazenmegawer/legal_docs_project
+  cd legal_docs_project
+  docker compose up --build
 ```
 
 ### once docker is up:
