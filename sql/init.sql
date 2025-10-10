@@ -2,7 +2,7 @@
 CREATE TABLE document (
     document_id SERIAL PRIMARY KEY,
     doc_type VARCHAR(20) NOT NULL,  -- (legislation / judgment / fatwa)
-    title TEXT,                     -- العنوان
+    title TEXT UNIQUE,                     -- العنوان
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP DEFAULT now()
 );
@@ -11,9 +11,11 @@ CREATE TABLE document (
 CREATE TABLE fatwa (
     fatwa_id SERIAL PRIMARY KEY,
     document_id INT NOT NULL REFERENCES document(document_id) ON DELETE CASCADE,
-    fatwa_number TEXT,
+    fatwa_number TEXT UNIQUE,
     fatwa_date DATE,
     subject TEXT,       -- الموضوع
+    issuer TEXT,        -- الجهة المصدرة
+    principle TEXT,     -- المبدأ
     facts TEXT,         -- الوقائع
     application TEXT,   -- التطبيق
     opinion TEXT,       -- الرأي
