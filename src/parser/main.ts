@@ -8,49 +8,56 @@ import { insertFatwa } from "./parserDbWriter/fatwaDbWriter";
 import * as fs from "node:fs/promises";
 import path from "path";
 
-async function main() {
-  const filePath = process.argv[2];
-  if (!filePath) {
-    console.error("Please provide a DOCX file path");
-    process.exit(1);
-  }
+async function processFile(filePath: string) {
+  try {
+    const rawText = await extractText(filePath);
+    const processedText = cleanText(rawText);
+    const docType = detectDocType(processedText);
 
-  const rawText = await extractText(filePath);
-  const processedText = cleanText(rawText);
-  const docType = detectDocType(processedText);
+    let extractedResult: any;
 
-  let extractedResult: any;
+    if (docType === "fatwa") {
+      extractedResult = extractFatwa(processedText);
+      console.log(`Extracted fatwa: ${filePath}`);
 
-  if (docType === "fatwa") {
-    extractedResult = extractFatwa(processedText);
-    console.log("Extracted fatwa:", filePath);
+      try {
+        await insertFatwa(extractedResult);
+      } catch (dbErr) {
+        console.error(`Failed to insert ${filePath} into DB:`, dbErr);
+        return;
+      }
 
-    try {
-      await insertFatwa(extractedResult);
-    } catch (dbErr) {
-      console.error("Failed to insert into DB:", dbErr);
-      process.exit(1);
+      const outputName =
+        path.basename(filePath, path.extname(filePath)) + ".json";
+      await fs.writeFile(outputName, JSON.stringify(extractedResult, null, 2), {
+        encoding: "utf8",
+      });
+      console.log(`Json output written to ${outputName}`);
+    } else {
+      console.warn(`Unknown document type for ${filePath}, skipping.`);
     }
-
-    const outputName = path.basename(filePath, path.extname(filePath)) + ".json";
-    await fs.writeFile(outputName, JSON.stringify(extractedResult, null, 2), {
-      encoding: "utf8",
-    });
-    console.log(`Structured output written to ${outputName}`);
-
-  } else if (docType === "judgment") {
-    extractedResult = extractJudgment(processedText);
-    console.warn("Judgment extraction not yet supported for DB insertion.");
-  } else if (docType === "legislation") {
-    extractedResult = extractLegislation(processedText);
-    console.warn("Legislation extraction not yet supported for DB insertion.");
-  } else {
-    console.error("Unknown document type:", docType);
-    process.exit(1);
+  } catch (err) {
+    console.error(`Error processing ${filePath}:`, err);
   }
 }
 
-main().catch(err => {
+async function main() {
+  const filePaths = process.argv.slice(2);
+  if (filePaths.length === 0) {
+    console.error("Please provide one or more DOCX file paths");
+    process.exit(1);
+  }
+
+  console.log(`Starting parser for ${filePaths.length} file(s)...`);
+
+  for (const filePath of filePaths) {
+    await processFile(filePath);
+  }
+
+  console.log("All fatwas processed and inserted.");
+}
+
+main().catch((err) => {
   console.error("Fatal error in main:", err);
   process.exit(1);
 });

@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   db:
     image: postgres:15
@@ -11,12 +13,18 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
       - ./sql:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d legal_docs"]
+      interval: 5s
+      retries: 10
+      start_period: 5s
 
   app:
     build: .
     container_name: legal_docs_app
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       DATABASE_URL: postgres://postgres:postgres@db:5432/legal_docs
       PORT: 3000
@@ -25,7 +33,15 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
-    command: npm run dev
+    command: >
+      sh -c "
+      echo 'Waiting for DB to initialize...';
+      sleep 3;
+      echo 'Running fatwa parser...';
+      npx ts-node src/parser/main.ts data/fatwas/*.docx;
+      echo 'Parser finished inserting fatwas. Starting API...';
+      npx ts-node-dev --respawn src/api/index.ts;
+      "
 
 volumes:
   db_data:

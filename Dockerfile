@@ -11,4 +11,4 @@ RUN npm run build
 
 # Expose port and start the application
 EXPOSE 3000
-CMD ["node", "dist/index.js"]
+CMD ["node", "dist/index.js", "npm", "run","dev"]

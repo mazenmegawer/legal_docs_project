@@ -1,8 +1,11 @@
-import { pool } from "../../db_connection/db";
+import {Pool} from "pg";
+import "dotenv/config";
 import { FatwaDocument } from "../types/FatwaDocument";
 
 export async function insertFatwa(fatwa: Partial<FatwaDocument>): Promise<void> {
-  const client = await pool.connect();
+  const client = new Pool({
+    connectionString: process.env.DATABASE_URL,
+  });
   try {
     await client.query("BEGIN");
 
@@ -50,6 +53,6 @@ export async function insertFatwa(fatwa: Partial<FatwaDocument>): Promise<void> 
     await client.query("ROLLBACK");
     console.error("Error inserting fatwa:", err);
   } finally {
-    client.release();
+    await client.end();
   }
 }
