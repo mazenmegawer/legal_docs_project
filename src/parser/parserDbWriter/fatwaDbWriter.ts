@@ -1,4 +1,4 @@
-import { pool } from "../../db/db";
+import { pool } from "../../db_connection/db";
 import { FatwaDocument } from "../types/FatwaDocument";
 
 export async function insertFatwa(fatwa: Partial<FatwaDocument>) {
@@ -6,7 +6,7 @@ export async function insertFatwa(fatwa: Partial<FatwaDocument>) {
   try {
     await client.query("BEGIN");
 
-    // Insert into document table first
+    // Insert into document table
     const docInsert = await client.query(
       `INSERT INTO document (doc_type, title)
        VALUES ($1, $2)
