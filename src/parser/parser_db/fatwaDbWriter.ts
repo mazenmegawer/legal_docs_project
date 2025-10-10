@@ -1,5 +1,5 @@
 import { pool } from "./db";
-import { FatwaDocument } from "";
+import { FatwaDocument } from "../types/FatwaDocument";
 
 export async function insertFatwa(fatwa: Partial<FatwaDocument>) {
   const client = await pool.connect();
