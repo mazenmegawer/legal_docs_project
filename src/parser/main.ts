@@ -33,9 +33,9 @@ async function main() {
 
     // Write structured JSON output
     const jsonOutput = JSON.stringify(extractedResult, null, 2);
-    await fs.writeFile("output4.json", jsonOutput, { encoding: "utf8" });
+    await fs.writeFile("fatwa.json", jsonOutput, { encoding: "utf8" });
 
-    console.log("✅ Structured output written to output.json");
+    console.log("Structured output written to fatwa.json");
 
 }
 
